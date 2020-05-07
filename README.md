@@ -91,9 +91,9 @@ Refer to the commands for a full list of the available commands
 
 ---
 
----
+<br>
 
----
+# 🇧🇷 Portuguese docs
 
 ## 1- Objetivo
 
