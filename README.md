@@ -10,15 +10,27 @@
 
 ## English:
 
-1. [Goal](#1--goal)
-2. [Dictionary](#2--dictionary)
-3. [Getting started](#3--getting-started)
-4. [Commands](#4--commands)
-5. [Examples](#5--examples)
-    - [Single user analysis](#single-user-analysis)
-    - [Hashtag analysis](#hashtag-analysis)
+- [TwitterScore - Twitter Bot Scanner](#twitterscore---twitter-bot-scanner)
+  - [English:](#english)
+  - [Portuguese:](#portuguese)
+  - [1- Goal](#1--goal)
+  - [2- Dictionary](#2--dictionary)
+  - [3- Getting started](#3--getting-started)
+  - [4- Commands](#4--commands)
+  - [5- Examples](#5--examples)
+    - [- Single user analysis](#ul-lisingle-user-analysisli-ul)
+    - [- Hashtag analysis](#ul-lihashtag-analysisli-ul)
     - [Labeled data analysis](#labeled-data-analysis)
-6. Limitations
+    - [6- Score](#6--score)
+      - [Equations](#equations)
+- [🇧🇷 Portuguese docs](#%f0%9f%87%a7%f0%9f%87%b7-portuguese-docs)
+  - [1- Objetivo](#1--objetivo)
+  - [2- Dicionário](#2--dicion%c3%a1rio)
+  - [3- Primeiros passos](#3--primeiros-passos)
+  - [4- Comandos](#4--comandos)
+    - [5- Exemplos](#5--exemplos)
+    - [6- Score (pt)](#6--score-pt)
+      - [Equations](#equations-1)
 
 ## Portuguese:
 
@@ -27,9 +39,9 @@
 3. [Primeiros passos](#3--primeiros-passos)
 4. [Comandos](#4--comandos)
 5. [Exemplos](#5--examples)
-    - [Análise de um usuário](#single-user-analysis)
-    - [Análise de uma hashtag](#hashtag-analysis)
-    - [Análise de usuários conhecidos](#labeled-data-analysis)
+   - [Análise de um usuário](#single-user-analysis)
+   - [Análise de uma hashtag](#hashtag-analysis)
+   - [Análise de usuários conhecidos](#labeled-data-analysis)
 
 ---
 
@@ -103,25 +115,62 @@ Refer to the commands for a full list of the available commands
 
 ## 5- Examples
 
-### Single user analysis
+### - Single user analysis
 
-`> npm run start -- -c user --username lorenzopicoli --showRankings  --report`
+`> npm run start -- -c user --username lorenzopicoli --showRankings --report`
+
 <p align="center">
   <img src="https://i.imgur.com/eTFpL42.png">
 </p>
 
-
-### Hashtag analysis
+### - Hashtag analysis
 
 `> npm run start -- -c hashtag --hashtag "#FechadoComBolsonaro"`
+
 <p align="center">
   <img src="https://i.imgur.com/jSo7CwR.png">
 </p>
 
 ### Labeled data analysis
+
 `> npm run start -- -c hashtag --hashtag "#FechadoComBolsonaro"`
+
 <p align="center">
   <img src="https://i.imgur.com/UUWESVS.png">
+</p>
+
+### 6- Score
+
+The score calculation is based on a set of parameters. As of now the final score is very simple and is simply the average of all of the parameters' scores.
+The parameters are:
+
+- **Unique Words:** How many unique words that the account used in the tweets analysed. Keep in mind that we remove "connectors" from this list. So words like "and", "I", "we", "this" , "on" are all removed as we really wanna know how diverse is the user vocabulary. If in the last 200 tweets all the user said was "Fuck you", "This is fake news", "Fuck fake news" and variations it means that there's not much effort and diversity in there
+- **Mentioned Users:** How many users were mentioned (including replies) in the tweets analysed. We don't use the unique users numbers (although we have this info), we use the total mentions
+- **Hashtags**: We really dive deeper in the hashtag usage as most of the bots I've had seen were used to get a subject in the trending topics by using hashtags
+  - **Count:** How many hashtags were used in total
+  - **Unique:** How many unique hashtags were used
+  - **Per tweet:** What's the average number of hashtag per tweet
+- **Average time between tweets:** This value is per session (with more than 1 tweet). A session is every time the user tweets something and it has been more than 10min since their last tweet
+- **Total score**: (_Unique words_ + _Mentioned Users_ + _Average time between tweets_ + (_Hashtag count_ + _Hashtag Unique_ + _Hashtag per tweet_) / 3) / 6
+
+The reason why we average the hashtag scores is to not give too much weight to the hashtag usage. In my tests a user that was using too many hashtags, but still acted like a human (lots of words, good interaction and reasonable tweet time) were being too penalized
+
+#### Equations
+
+To find the equation that better differentiate a legit user from trolls/bots for each parameter we analyse the labeled data and ideally plot or print the value for all users (that's what the labeledData command is most used for) and then try to find a equation that matches the values we see.
+This is what we ended up with for this first version:
+
+The order is:
+
+1. averageTimeBetweenTweetsEq
+2. hashtagsPerTweetEq
+3. hashtagsUniqueEq
+4. hashtagsTotalEq
+5. mentionedUsersTotalEq
+6. wordsTotalEq
+
+<p align="left">
+  <img src="https://i.imgur.com/QHf0i4O.png">
 </p>
 
 ---
@@ -198,3 +247,41 @@ Na seção comandos você pode encontrar uma lista completa dos comandos dispon�
 | --mentionedUsersUniqueCount | Analisa o parâmetro "mentionedUsersUniqueCount" para todos os usuários conhecidos (labeledData) available                                                                                                                                                                                                                                                                                                                    |                                   | -c: "labeledData" |     |
 | --sessionAverageTweetTime   | Analisa o parâmetro "sessionAverageTweetTime" para todos os usuários conhecidos (labeledData) available                                                                                                                                                                                                                                                                                                                      |                                   | -c: "labeledData" |     |
 | --score                     | Analisa o score final de todos os usuários conhecidos (labeledData)                                                                                                                                                                                                                                                                                                                                                          |                                   | -c: "labeledData" |     |
+
+### 5- Exemplos
+
+[Aqui](#5--examples)
+
+### 6- Score (pt)
+
+O calculo do score é baseado num conjunto de parâmetros. No momento o score final é sbem smples e é simplesmente a média do score de todos os parâmetros.
+Os parâmetros são:
+
+- **Palavras únicas:** Quantas palavras únicas (não repetidas) foram usadas. Tenha em mente que nós removemos os conectivos dessa lista. Então palavras como "eu", "e", "nós", "isso", "aquilo", "esse" são todas removidas porque o objetivo é saber se o vocabulário do usuário é diverso ou não. Se nos últimos 200 tweets tudo que o usuário disse foi "Fora Lula", "Fora Bolsonaro", "Odeio o PT", "Odeio o Novo", "Odeio o Lula e o Bolsonaro" significa que não tem muita diversidade e isso é ruim.
+- **Usuários mencionados:** Quantos usuários foram mencionados (incluindo respostas) nos tweets analisados. Nós não usamos o valor de interações únicas (apesar de termos essa informação), nós usamos o número total de menções
+- **Hashtags:**: Nós vamos um pouco mais a fundo na análiso do uso de hashtags já que a maioria dos bots que eu vi estavam sendo usados pra subir hashtags
+  - **Quantidade:** Quantas hashtags foram usadas no total
+  - **Únicas** Quantas hashtags únicas foram utilizadas
+  - **Por tweet:** A média de hashtag por tweet
+- **Tempo médio entre tweets:** Esse valor é por sessão (com mais de um tweet). Uma sessão é toda vez que um usuário twita alguma coisa e o último tweet foi há mais de 10min atrás
+- **Score final:** (_Palavras únicas_ + _Usuários mencionados_ + _Tempo médio entre tweets_ + (_Quantidade de hashtags_ + _Hashtags únicas_ + _Hashtags por tweet_) / 3) / 6
+
+O motivo pelo qual a gente tira a média dos scores das hashtags é pra não dar muito peso pro uso de hashtags. Nos testes os usuários que usavam muitas hashtags eram muito punidos mesmo se eles agissem normalmente (usassem bastante palavras, tivessem boas interações, etc..)
+
+#### Equations
+
+Pra achar as equações que melhor diferenciam usuários legítimos de trolls/bots pra cada parâmetro nós analisamos os usuários conhecidos e ai tentamos achar as equações que melhor avaliam esses usuárions
+Essas são as equações que achei nessa primeira versão:
+
+A ordem é:
+
+1. averageTimeBetweenTweetsEq
+2. hashtagsPerTweetEq
+3. hashtagsUniqueEq
+4. hashtagsTotalEq
+5. mentionedUsersTotalEq
+6. wordsTotalEq
+
+<p align="left">
+  <img src="https://i.imgur.com/QHf0i4O.png">
+</p>
