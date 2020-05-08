@@ -4,6 +4,10 @@
 
 🇧🇷 Uma implementação simples para identificar bots e trolls no Twitter
 
+<p align="center">
+  <img src="https://i.pinimg.com/564x/d4/42/73/d44273f7bb30d26e9e88c765665cee84.jpg">
+</p>
+
 ## English:
 
 1. [Goal](#1--goal)
