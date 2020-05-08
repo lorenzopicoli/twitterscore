@@ -8,29 +8,28 @@
   <img src="https://i.pinimg.com/564x/d4/42/73/d44273f7bb30d26e9e88c765665cee84.jpg">
 </p>
 
-## English:
-
-- [TwitterScore - Twitter Bot Scanner](#twitterscore---twitter-bot-scanner)
-  - [English:](#english)
-  - [Portuguese:](#portuguese)
+- [English:](#english)
   - [1- Goal](#1--goal)
   - [2- Dictionary](#2--dictionary)
   - [3- Getting started](#3--getting-started)
   - [4- Commands](#4--commands)
   - [5- Examples](#5--examples)
-    - [- Single user analysis](#ul-lisingle-user-analysisli-ul)
-    - [- Hashtag analysis](#ul-lihashtag-analysisli-ul)
+    - [Single user analysis](#single-user-analysisli-ul)
+    - [Hashtag analysis](#hashtag-analysisli-ul)
     - [Labeled data analysis](#labeled-data-analysis)
-    - [6- Score](#6--score)
-      - [Equations](#equations)
-- [🇧🇷 Portuguese docs](#%f0%9f%87%a7%f0%9f%87%b7-portuguese-docs)
+  - [6- Score](#6--score)
+    - [Equations](#equations)
+- [Portuguese](#%f0%9f%87%a7%f0%9f%87%b7-portuguese-docs)
   - [1- Objetivo](#1--objetivo)
   - [2- Dicionário](#2--dicion%c3%a1rio)
   - [3- Primeiros passos](#3--primeiros-passos)
   - [4- Comandos](#4--comandos)
-    - [5- Exemplos](#5--exemplos)
-    - [6- Score (pt)](#6--score-pt)
-      - [Equations](#equations-1)
+  - [5- Exemplos](#5--exemplos)
+      - [Análise de um usuário](#single-user-analysisli-ul)
+      - [Análise de uma hashtag](#hashtag-analysisli-ul)
+      - [Análise de usuários conhecidos](#labeled-data-analysis)
+  - [6- Score (pt)](#6--score-pt)
+    - [Equações](#equations-1)
 
 ## Portuguese:
 
