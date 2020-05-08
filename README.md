@@ -15,9 +15,9 @@
 3. [Getting started](#3--getting-started)
 4. [Commands](#4--commands)
 5. [Examples](#5--examples)
-  - [Single user analysis](#single-user-analysis)
-  - [Hashtag analysis](#hashtag-analysis)
-  - [Labeled data analysis](#labeled-data-analysis)
+    - [Single user analysis](#single-user-analysis)
+    - [Hashtag analysis](#hashtag-analysis)
+    - [Labeled data analysis](#labeled-data-analysis)
 6. Limitations
 
 ## Portuguese:
@@ -27,9 +27,9 @@
 3. [Primeiros passos](#3--primeiros-passos)
 4. [Comandos](#4--comandos)
 5. [Exemplos](#5--examples)
-  - [Análise de um usuário](#single-user-analysis)
-  - [Análise de uma hashtag](#hashtag-analysis)
-  - [Análise de usuários conhecidos](#labeled-data-analysis)
+    - [Análise de um usuário](#single-user-analysis)
+    - [Análise de uma hashtag](#hashtag-analysis)
+    - [Análise de usuários conhecidos](#labeled-data-analysis)
 
 ---
 
