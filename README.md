@@ -14,7 +14,11 @@
 2. [Dictionary](#2--dictionary)
 3. [Getting started](#3--getting-started)
 4. [Commands](#4--commands)
-5. Limitations
+5. [Examples](#5--examples)
+  1. [Single user analysis](#single-user-analysis)
+  2. [Hashtag analysis](#hashtag-analysis)
+  3. [Labeled data analysis](#labeled-data-analysis)
+6. Limitations
 
 ## Portuguese:
 
@@ -22,6 +26,10 @@
 2. [Dicionário](#2--dicion%c3%a1rio)
 3. [Primeiros passos](#3--primeiros-passos)
 4. [Comandos](#4--comandos)
+5. [Exemplos](#5--examples)
+  1. [Análise de um usuário](#single-user-analysis)
+  2. [Análise de uma hashtag](#hashtag-analysis)
+  3. [Análise de usuários conhecidos](#labeled-data-analysis)
 
 ---
 
@@ -92,6 +100,29 @@ Refer to the commands for a full list of the available commands
 | --mentionedUsersUniqueCount | Analyse the "mentionedUsersUniqueCount" parameter for all the labeled data available                                                                                                                                                                                                                                                                                                                                                                 |                                   | -c: "labeledData" |     |
 | --sessionAverageTweetTime   | Analyse the "sessionAverageTweetTime" parameter for all the labeled data available                                                                                                                                                                                                                                                                                                                                                                   |                                   | -c: "labeledData" |     |
 | --score                     | Analyse the final score for all the labeled data available                                                                                                                                                                                                                                                                                                                                                                                           |                                   | -c: "labeledData" |     |
+
+## 5- Examples
+
+### Single user analysis
+
+`> npm run start -- -c user --username lorenzopicoli --showRankings  --report`
+<p align="center">
+  <img src="https://i.imgur.com/eTFpL42.png">
+</p>
+
+
+### Hashtag analysis
+
+`> npm run start -- -c hashtag --hashtag "#FechadoComBolsonaro"`
+<p align="center">
+  <img src="https://i.imgur.com/jSo7CwR.png">
+</p>
+
+### Labeled data analysis
+`> npm run start -- -c hashtag --hashtag "#FechadoComBolsonaro"`
+<p align="center">
+  <img src="https://i.imgur.com/UUWESVS.png">
+</p>
 
 ---
 
