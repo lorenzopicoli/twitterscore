@@ -31,17 +31,6 @@
   - [6- Score (pt)](#6--score-pt)
     - [Equações](#equations-1)
 
-## Portuguese:
-
-1. [Objetivo](#1--objetivo)
-2. [Dicionário](#2--dicion%c3%a1rio)
-3. [Primeiros passos](#3--primeiros-passos)
-4. [Comandos](#4--comandos)
-5. [Exemplos](#5--examples)
-   - [Análise de um usuário](#single-user-analysis)
-   - [Análise de uma hashtag](#hashtag-analysis)
-   - [Análise de usuários conhecidos](#labeled-data-analysis)
-
 ---
 
 ## 1- Goal
