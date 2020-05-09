@@ -8,7 +8,7 @@ import Session from '../../interfaces/Session'
 import UserData from '../../interfaces/UserData'
 import { TweetApiResponse } from '../../interfaces/TwitterApi'
 import { usageObjToArray, addUsageWithSideEffect, addUsage, parseTwitterDate } from '../../helpers'
-import { ScoredUserAnalysis } from '../../interfaces/UserAnalysis'
+import { ScoredUserAnalysis, UserAnalysis } from '../../interfaces/UserAnalysis'
 import { calculateUserScore } from './score'
 
 const regex = nonRelevantWordsDic.map((word: string): string => `(\\b${word}\\b)`).join('|')
@@ -52,6 +52,12 @@ export const processTweets = (username: string, tweetsParam: TweetApiResponse[])
 
   const firstTweetDate = tweets[0]?.created_at ? parseTwitterDate(tweets[0].created_at) : null
   const lastTweetDate = lastTweet?.created_at ? parseTwitterDate(lastTweet.created_at) : null
+  const analysedUser = tweets[0]?.user
+  const accountAge = moment().diff(
+    analysedUser?.created_at ? parseTwitterDate(analysedUser.created_at) : moment(),
+    'days'
+  )
+  const averageTweetCountPerDay = analysedUser?.statuses_count ? analysedUser.statuses_count / (accountAge || 1) : 0
   const sessions: Session[] = []
   const timeBetweenTweets: number[] = []
   let texts: UsageCount = {} // Texts used in tweets
@@ -141,7 +147,30 @@ export const processTweets = (username: string, tweetsParam: TweetApiResponse[])
     return null
   }
 
+  logger.debug(
+    'User data (process tweets)',
+    JSON.stringify(
+      {
+        accountAge,
+        username,
+        texts,
+        mentionedUsers,
+        hashtags,
+        sessions,
+        timeBetweenTweets,
+        firstTweetDate,
+        lastTweetDate,
+        retweetsCount,
+        retweetedUsers,
+        tweetsCount
+      },
+      null,
+      2
+    )
+  )
   return {
+    accountAge,
+    averageTweetCountPerDay,
     username,
     texts,
     mentionedUsers,
@@ -166,7 +195,9 @@ export const analyseUserData = (data: UserData): ScoredUserAnalysis => {
     tweetsCount,
     retweetsCount,
     firstTweetDate,
-    lastTweetDate
+    lastTweetDate,
+    averageTweetCountPerDay,
+    accountAge
   } = data
   const words = getWords(texts)
   const orderedSessions = lodash.orderBy(sessions, ['nTweets'], ['desc'])
@@ -178,12 +209,14 @@ export const analyseUserData = (data: UserData): ScoredUserAnalysis => {
 
   const sessionsWithMoreThanOneTweet = sessions.filter((s) => s.tweetCount > 1)
   const totalHashtags = lodash.sumBy(orderedHashtags, 'count')
-  const userAnalysis = {
+  const userAnalysis: UserAnalysis = {
     username,
     firstTweetDate,
     lastTweetDate,
+    accountAge,
     tweets: {
-      totalCount: tweetsCount
+      totalCount: tweetsCount,
+      averagePerDay: averageTweetCountPerDay
     },
     retweets: {
       totalCount: retweetsCount

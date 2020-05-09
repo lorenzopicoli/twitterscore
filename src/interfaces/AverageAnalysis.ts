@@ -12,8 +12,11 @@ export default interface AverageAnalysis {
   tweetCount: number
   usernames: string[]
   score: AverageAnalysisComponent
+  accountAge: AverageAnalysisComponent
   tweets: {
+    // Analysed tweets, not all time tweets
     totalCount: AverageAnalysisComponent
+    averagePerDay: AverageAnalysisComponent
   }
   retweets: {
     totalCount: AverageAnalysisComponent
@@ -42,6 +45,11 @@ export const emptyAverageAnalysis: AverageAnalysis = {
   usernames: [],
   userCount: 0,
   tweetCount: 0,
+  accountAge: {
+    average: 0,
+    max: 0,
+    min: 0
+  },
   score: {
     average: 0,
     max: 0,
@@ -49,6 +57,11 @@ export const emptyAverageAnalysis: AverageAnalysis = {
   },
   tweets: {
     totalCount: {
+      average: 0,
+      max: 0,
+      min: 0
+    },
+    averagePerDay: {
       average: 0,
       max: 0,
       min: 0

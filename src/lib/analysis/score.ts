@@ -24,7 +24,7 @@ export const calculateUserScore = (data: UserAnalysis): Score => {
   const mentionedUsersTotalScore = mentionedUsersTotalEq(mentionedUsers.totalCount)
   const wordsTotalUniqueScore = wordsTotalEq(words.uniqueCount)
   const totalScore = finalScoreEq([
-    averageTimeBetweenTweetsScore,
+    // averageTimeBetweenTweetsScore,
     (hashtagsPerTweetScore + hashtagsUniqueScore + hashtagsTotalScore) / 3,
     mentionedUsersTotalScore,
     wordsTotalUniqueScore

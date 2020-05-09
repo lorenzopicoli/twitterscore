@@ -14,7 +14,9 @@ export default interface UserData {
   timeBetweenTweets: number[]
   firstTweetDate: Moment | null
   lastTweetDate: Moment | null
+  accountAge: number
   retweetsCount: number
   retweetedUsers: UsageCount
   tweetsCount: number
+  averageTweetCountPerDay: number
 }

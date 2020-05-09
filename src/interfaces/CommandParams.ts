@@ -17,6 +17,12 @@ export interface LabeledDataCommandParams extends CommandParams {
   hashtagUniqueCount?: boolean
   wordsUniqueCount?: boolean
   wordsNonRelevant?: boolean
+  retweetCount?: boolean
+  tweetPerDay?: boolean
+  accountAge?: boolean
+  troll?: boolean
+  bot?: boolean
+  legit?: boolean
   mentionedUsersTotalCount?: boolean
   mentionedUsersUniqueCount?: boolean
   sessionAverageTweetTime?: boolean

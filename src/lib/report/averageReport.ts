@@ -6,7 +6,18 @@ const getAverageItem = (item: AverageAnalysisComponent): string =>
   `${item.average.toFixed(2)} ||| (${item.min}/${item.max})`
 
 export default (title: string, analysis: AverageAnalysis): void => {
-  const { userCount, tweetCount, mentionedUsers, retweets, sessions, hashtags, words, score } = analysis
+  const {
+    userCount,
+    tweetCount,
+    mentionedUsers,
+    retweets,
+    tweets,
+    sessions,
+    hashtags,
+    words,
+    score,
+    accountAge
+  } = analysis
 
   // General
   logger.title(title)
@@ -17,6 +28,8 @@ export default (title: string, analysis: AverageAnalysis): void => {
   logSectionTitle('📖 General')
   logSectionItem('Average score', getAverageItem(score))
   logSectionItem('Average number of retweets', getAverageItem(retweets.totalCount))
+  logSectionItem('Average account age', getAverageItem(accountAge))
+  logSectionItem('Average tweet count per day', getAverageItem(tweets.averagePerDay))
 
   logSectionTitle('🧑 Mentioned users')
   logSectionItem('Average number of unique users mentioned', getAverageItem(mentionedUsers.uniqueCount))

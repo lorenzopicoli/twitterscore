@@ -26,13 +26,14 @@ export const title = (message: string): void => {
 export const section = (message: string): void => {
   console.log(`${chalk.inverse.bold(message)}`)
 }
-export const debug = (message: string): void => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const debug = (message: string, ...rest: any[]): void => {
   if (!IS_DEBUG) {
     return
   }
   const time = chalk.white(`${now()} - `)
-  const styledMessage = chalk.magenta(` ${message}`)
-  console.log(time + styledMessage)
+  const styledMessage = chalk.white(` ${message}`)
+  console.log(time + styledMessage, ...rest)
 }
 
 export const info = (message: string): void => console.log(chalk.blue(` ${message}`))

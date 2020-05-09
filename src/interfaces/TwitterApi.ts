@@ -1,6 +1,8 @@
 export interface TwitterUserApiResponse {
   name: string
   screen_name: string
+  created_at: string
+  statuses_count?: number
 }
 
 export interface TweetApiResponse {

@@ -16,12 +16,14 @@ const scoreReport = (analysis: ScoredUserAnalysis): void => {
 }
 
 const generalReport = (analysis: ScoredUserAnalysis): void => {
-  const { username, tweets, firstTweetDate, lastTweetDate, score } = analysis
+  const { username, tweets, firstTweetDate, lastTweetDate, score, accountAge } = analysis
 
   logSectionTitle('General')
   logSectionItem('Analysed user', username)
   logColoredScore('Score', score.total)
+  logSectionItem('Account age', `${accountAge} days`)
   logSectionItem('Number of tweets analysed', tweets.totalCount)
+  logSectionItem('Average tweet count per day', tweets.averagePerDay)
   logSectionItem('Date of first tweet analysed', firstTweetDate?.format(dateFormat) ?? 'Never')
   logSectionItem('Date of last tweet analysed', lastTweetDate?.format(dateFormat) ?? 'Never')
 }

@@ -10,8 +10,11 @@ export interface UserAnalysis {
   username: string
   firstTweetDate: Moment | null
   lastTweetDate: Moment | null
+  accountAge: number
+
   tweets: {
     totalCount: number
+    averagePerDay: number
   }
   retweets: {
     totalCount: number

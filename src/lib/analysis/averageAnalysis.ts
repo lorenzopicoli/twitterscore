@@ -38,11 +38,21 @@ export const averageWithPartial = (
       max: getMax(partialAverage, userAnalysis, 'score.total'),
       min: getMin(partialAverage, userAnalysis, 'score.total')
     },
+    accountAge: {
+      average: averageAndSum(partialAverage, userAnalysis, 'accountAge', totalUsers),
+      max: getMax(partialAverage, userAnalysis, 'accountAge'),
+      min: getMin(partialAverage, userAnalysis, 'accountAge')
+    },
     tweets: {
       totalCount: {
         average: averageAndSum(partialAverage, userAnalysis, 'tweets.totalCount', totalUsers),
         max: getMax(partialAverage, userAnalysis, 'tweets.totalCount'),
         min: getMin(partialAverage, userAnalysis, 'tweets.totalCount')
+      },
+      averagePerDay: {
+        average: averageAndSum(partialAverage, userAnalysis, 'tweets.averagePerDay', totalUsers),
+        max: getMax(partialAverage, userAnalysis, 'tweets.averagePerDay'),
+        min: getMin(partialAverage, userAnalysis, 'tweets.averagePerDay')
       }
     },
     retweets: {

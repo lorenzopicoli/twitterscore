@@ -43,17 +43,30 @@ export const handleLabeledData = async (params: LabeledDataCommandParams): Promi
     mentionedUsersUniqueCount,
     sessionAverageTweetTime,
     score,
+    retweetCount,
+    tweetPerDay,
+    accountAge,
+    troll,
+    bot,
+    legit,
     all
   } = params
 
   const legitUsersAnalysis = await getUsersAnalysis(legitUsers, params)
   const trollUsersAnalysis = await getUsersAnalysis(trollUsers, params)
   const hashtagBotsAnalysis = await getUsersAnalysis(hashtagBots, params)
-
+  // Check if no filter was sent
+  const noFilters = !troll && !bot && !legit
   const allLabeledUsers = [
-    ...legitUsersAnalysis.map((u) => ({ ...u, label: u.username, bgColor: { red: 0, green: 64, blue: 30 } })),
-    ...trollUsersAnalysis.map((u) => ({ ...u, label: u.username, bgColor: { red: 115, green: 65, blue: 0 } })),
-    ...hashtagBotsAnalysis.map((u) => ({ ...u, label: u.username, bgColor: { red: 100, green: 0, blue: 0 } }))
+    ...(noFilters || legit
+      ? legitUsersAnalysis.map((u) => ({ ...u, label: u.username, bgColor: { red: 0, green: 64, blue: 30 } }))
+      : []),
+    ...(noFilters || troll
+      ? trollUsersAnalysis.map((u) => ({ ...u, label: u.username, bgColor: { red: 115, green: 65, blue: 0 } }))
+      : []),
+    ...(noFilters || bot
+      ? hashtagBotsAnalysis.map((u) => ({ ...u, label: u.username, bgColor: { red: 100, green: 0, blue: 0 } }))
+      : [])
   ]
 
   if (hashtagPerTweet || all) {
@@ -135,6 +148,28 @@ export const handleLabeledData = async (params: LabeledDataCommandParams): Promi
       allLabeledUsers.map((u) => ({ label: u.label, bgColor: u.bgColor, value: u.score.averageTimeBetweenTweets }))
     )
   }
+
+  if (tweetPerDay || all) {
+    labeledDataReport(
+      'Average tweet count per day labeled data analysis',
+      allLabeledUsers.map((u) => ({ label: u.label, bgColor: u.bgColor, value: u.tweets.averagePerDay }))
+    )
+  }
+
+  if (accountAge || all) {
+    labeledDataReport(
+      'Account age labeled data analysis',
+      allLabeledUsers.map((u) => ({ label: u.label, bgColor: u.bgColor, value: u.accountAge }))
+    )
+  }
+
+  if (retweetCount || all) {
+    labeledDataReport(
+      'Retweets count labeled data analysis',
+      allLabeledUsers.map((u) => ({ label: u.label, bgColor: u.bgColor, value: u.tweets.totalCount }))
+    )
+  }
+
   if (score || all) {
     labeledDataReport(
       'Score analysis',
