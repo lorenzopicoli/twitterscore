@@ -8,5 +8,10 @@ export default [
   'Cristia65977381',
   'Luciano1010102',
   'Marise43824473',
-  'PauloHe60673329' // <200 tweets
+  'PauloHe60673329', // <200 tweets
+  'Ron40630432',
+  'Claudia19628410',
+  'mihbarros131', // I've actually DMed this person and I know it's not a BOT per say but it acts EXACTLY like a bot
+  'LolaMoura3',
+  'EtevaldoGomesJ2' // <200 tweets
 ]

@@ -14,5 +14,8 @@ export default [
   'DeboraS80108942',
   'Victor38498120', // <200 tweets
   'Luiz59551244',
-  'thiagofmelo83'
+  'thiagofmelo83',
+  'Gilka15753244', // <200 tweets
+  'CidadeLiana',
+  'DeyvidP66341354' // Might be a hashtag bot maybe?
 ]
