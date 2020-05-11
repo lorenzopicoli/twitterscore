@@ -6,6 +6,7 @@ export interface TwitterUserApiResponse {
 }
 
 export interface TweetApiResponse {
+  id_str: string
   entities?: { user_mentions?: TwitterUserApiResponse[]; hashtags?: { text: string }[] }
   full_text?: string
   user?: TwitterUserApiResponse

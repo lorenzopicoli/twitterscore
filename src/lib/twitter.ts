@@ -12,24 +12,50 @@ const twitterApi = axios.create({
     Authorization: process.env.TWITTER_TOKEN
   }
 })
+const labeledDataCachePath = (username: string): string => `./cache/labeledData/${username}.json`
+const cachePath = (username: string): string => `./cache/${username}.json`
 
-export const fetchUserTweets = async (username: string): Promise<TweetApiResponse[] | null> => {
-  const labeledDataCachePath = `./cache/labeledData/${username}.json`
-  const cachePath = `./cache/${username}.json`
-
+export const getCachedTweets = (username: string): { tweets?: TweetApiResponse[]; path?: string } => {
   try {
+    const labeledDataCache = labeledDataCachePath(username)
+    const cache = cachePath(username)
     let rawData: string | undefined
+    let path: string
     try {
-      rawData = fs.readFileSync(labeledDataCachePath, 'utf8')
+      rawData = fs.readFileSync(labeledDataCache, 'utf8')
+      path = labeledDataCache
     } catch (e) {
-      rawData = fs.readFileSync(cachePath, 'utf8')
+      rawData = fs.readFileSync(cache, 'utf8')
+      path = cache
     }
 
     const tweets = JSON.parse(rawData)
     logger.info(`Using labeled data cache for user ${username}...`)
-    return tweets
+    return { tweets: tweets as TweetApiResponse[], path }
     // eslint-disable-next-line no-empty
   } catch {}
+
+  return {}
+}
+
+export const cacheTweets = (username: string, tweets: TweetApiResponse[]): TweetApiResponse[] => {
+  const { tweets: previouslyCached, path } = getCachedTweets(username)
+
+  const allTweets = lodash.uniqBy([...tweets, ...(previouslyCached || [])], (t1) => t1.id_str)
+  fs.writeFileSync(path || cachePath(username), JSON.stringify(allTweets), {
+    encoding: 'utf8',
+    flag: 'w'
+  })
+  return allTweets
+}
+
+export const fetchUserTweets = async (username: string, ignoreCache = false): Promise<TweetApiResponse[] | null> => {
+  if (!ignoreCache) {
+    const cacheData = getCachedTweets(username)
+    if (cacheData.tweets) {
+      return cacheData.tweets as TweetApiResponse[]
+    }
+  }
 
   logger.info(`Calling twitter api for user ${username}...`)
 
@@ -41,12 +67,9 @@ export const fetchUserTweets = async (username: string): Promise<TweetApiRespons
   }
   /* eslint-enable @typescript-eslint/camelcase */
   try {
-    const { data: tweets } = await twitterApi.get(`/statuses/user_timeline.json?${qs.stringify(params)}`)
+    const { data: response } = await twitterApi.get(`/statuses/user_timeline.json?${qs.stringify(params)}`)
 
-    fs.writeFileSync(cachePath, JSON.stringify(tweets), {
-      encoding: 'utf8',
-      flag: 'w'
-    })
+    const tweets = cacheTweets(username, response)
 
     return tweets
   } catch (e) {

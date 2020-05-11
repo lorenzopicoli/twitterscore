@@ -6,14 +6,14 @@ import { processTweets, analyseUserData } from '../analysis/userAnalysis'
 import { singleUserReport } from '../report/userReport'
 
 export const handleUserCommand = async (params: UserCommandParams): Promise<ScoredUserAnalysis | null> => {
-  const { report = false, showRankings = false, detailed = false, username } = params
+  const { report = false, showRankings = false, detailed = false, username, ignoreCache } = params
 
   if (!username) {
     logger.error(`Missing username`)
     return null
   }
 
-  const tweets = await fetchUserTweets(username)
+  const tweets = await fetchUserTweets(username, ignoreCache)
   if (!tweets) {
     logger.error(`Failed to fetch user ${username}`)
     return null

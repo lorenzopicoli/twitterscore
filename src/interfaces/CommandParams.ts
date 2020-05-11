@@ -9,6 +9,7 @@ export interface CommandParams {
 
 export interface UserCommandParams extends CommandParams {
   report?: boolean // Should we report the user analysis?
+  ignoreCache?: boolean
 }
 
 export interface LabeledDataCommandParams extends CommandParams {
