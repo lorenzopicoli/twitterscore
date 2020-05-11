@@ -29,4 +29,5 @@ export interface LabeledDataCommandParams extends CommandParams {
   sessionAverageTweetTime?: boolean
   score?: boolean
   all?: boolean
+  refreshCache?: boolean
 }

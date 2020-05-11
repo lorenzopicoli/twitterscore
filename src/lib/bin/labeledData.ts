@@ -10,7 +10,7 @@ const getUsersAnalysis = async (
   usernames: string[],
   params: LabeledDataCommandParams
 ): Promise<ScoredUserAnalysis[]> => {
-  const { detailed } = params
+  const { detailed, refreshCache } = params
 
   return (
     await Bluebird.map(
@@ -23,7 +23,8 @@ const getUsersAnalysis = async (
           ...params,
           username: user,
           detailed: false,
-          report: detailed
+          report: detailed,
+          ignoreCache: refreshCache
         })
       },
       // Concurrency can be high here as we'll be getting data from cache and we won't hit twitter at any point
