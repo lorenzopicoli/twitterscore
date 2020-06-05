@@ -13,5 +13,9 @@ export default [
   'Claudia19628410',
   'mihbarros131', // I've actually DMed this person and I know it's not a BOT per say but it acts EXACTLY like a bot
   'LolaMoura3',
-  'EtevaldoGomesJ2' // <200 tweets
+  'EtevaldoGomesJ2', // <200 tweets
+  'Anderso44589276',
+  'AnaMarc36729644', // Almost a retweeet bot
+  'Gabriel16488258',
+  'tia_iaia_sil'
 ]
