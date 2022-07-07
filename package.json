@@ -38,7 +38,7 @@
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "minimist": "^1.2.5",
-    "moment": "^2.25.3",
+    "moment": "^2.29.4",
     "querystring": "^0.2.0"
   },
   "devDependencies": {
